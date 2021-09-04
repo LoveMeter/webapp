@@ -30,6 +30,11 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
+      - name: Install Depedency
+        run: |
+          npm install -g @vue/cli
+          npm install
+
       - name: Build Project
         run: npm run build
       
