@@ -1,0 +1,56 @@
+name: Deploy to FIrebase | Nonprod
+
+on:
+  push:
+    branches: [ nonprod ]
+  pull_request:
+    branches: [ nonprod ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Love Meter Project
+    runs-on: ubuntu-latest
+    container:
+      image: node:14.17.3-buster
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Depedency
+        run: |
+          npm install -g @vue/cli
+          npm install
+
+      - name: Build Project
+        run: npm run build
+      
+      - name: Archive production artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: dist
+          path: dist
+
+  deploy:
+    name: Deploy to Firebase
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@main
+        with:
+          name: dist
+          path: dist
+      
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
