@@ -25,6 +25,9 @@
 
 <script>
 import Card from '@/components/Card'
+import loveIcon from '@/assets/icons/love.png'
+import angryIcon from '@/assets/icons/angry.png'
+import togetherIcon from '@/assets/icons/together.png'
 
 export default {
     name: "Homa Page",
@@ -37,7 +40,15 @@ export default {
                 {
                     'id': 1,
                     'title': 'Ceritakan Perasanmu',
-                    'image': '@/assets/icons/love.png' 
+                    'image': loveIcon
+                },{
+                    'id': 2,
+                    'title': 'Jaga Perasaan Pasanganmu',
+                    'image': angryIcon
+                },{
+                    'id': 3,
+                    'title': 'Bersama Selamanya',
+                    'image': togetherIcon
                 }
             ]
         }

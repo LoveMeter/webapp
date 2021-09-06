@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <img :src="'@/assets/icons/love.png'">
+        <img :src="image">
         <div class="card-header">
             {{ title }}
         </div>
@@ -16,7 +16,6 @@ export default {
             required: true
         },
         image: {
-            type: String,
             required: true
         }
     },
