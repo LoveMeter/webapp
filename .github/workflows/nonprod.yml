@@ -27,6 +27,12 @@ jobs:
       - name: Build Project
         run: npm run build
       
+      - name: Save to JFROG
+        run: |
+          cd dist
+          tar -tf lovemeter-testing.tar.gz
+          curl -k -u ${{ secrets.JFROG_USERNAME }}:${{ secrets.JFROG_PASSWORD }} -T lovemeter-testing.tar.gz "https://beningc.jfrog.io/artifactory/lovemeter/nonprod/lovemeter-testing.tar.gz"
+      
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
