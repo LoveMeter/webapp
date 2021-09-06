@@ -30,8 +30,8 @@ jobs:
       - name: Save to JFROG
         run: |
           cd dist
-          tar -tf lovemeter-testing.tar.gz *
-          curl -k -u ${{ secrets.JFROG_USERNAME }}:${{ secrets.JFROG_PASSWORD }} -T lovemeter-testing.tar.gz "https://beningc.jfrog.io/artifactory/lovemeter/nonprod/lovemeter-testing.tar.gz"
+          tar -C $(pwd) -cf lovemeter-${{ GITHUB_RUN_NUMBER }}.tar.gz *
+          curl -k -u ${{ secrets.JFROG_USERNAME }}:${{ secrets.JFROG_PASSWORD }} -T lovemeter-${{ GITHUB_RUN_NUMBER }}.tar.gz "https://beningc.jfrog.io/artifactory/lovemeter/nonprod/lovemeter-${{ GITHUB_RUN_NUMBER }}.tar.gz"
       
       - name: Archive production artifact
         uses: actions/upload-artifact@main
