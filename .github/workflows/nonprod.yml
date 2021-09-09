@@ -37,7 +37,7 @@ jobs:
   #       run: jfrog xr audit-npm --watches "LoveMeter"
   
   security:
-    name: Scan Project
+    name: Depedency Scanning
     runs-on: ubuntu-latest
     container:
       image: 244342/node-jfrog:14.17.3-buster
@@ -55,7 +55,7 @@ jobs:
           npm install --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
       
       - name: Instakk snyk
-        run: npm i -g snyk
+        run: npm i -g snyk --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
 
       - name: Snyk auth
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
