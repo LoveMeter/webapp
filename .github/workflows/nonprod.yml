@@ -9,6 +9,25 @@ on:
   workflow_dispatch:
 
 jobs:
+  scan:
+    name: Scan Depedency
+    runs-on: ubuntu-latest
+    container:
+      image: 244342/node-jfrog:14.17.3-buster
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Import jfrog server token
+        run: jfrog c import ${{ secrets.JFROG_SERVER_TOKEN }}
+      
+      - name: Test JFROG connection
+        run: jfrog rt ping
+      
+      - name: Scan NPM depedency
+        run: jfrog xr audit-npm
+
   build:
     name: Build Love Meter Project
     runs-on: ubuntu-latest
