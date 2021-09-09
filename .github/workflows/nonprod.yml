@@ -39,7 +39,7 @@ jobs:
   security:
     name: Scan Project
     runs-on: ubuntu-latest
-    needs: security
+    needs: scan
 
     steps:
       - uses: actions/checkout@master
