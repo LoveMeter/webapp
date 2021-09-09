@@ -34,7 +34,7 @@ jobs:
         run: jfrog rt ping
       
       - name: Scan NPM depedency
-        run: jfrog xr audit-npm --watches "npm"
+        run: jfrog xr audit-npm --watches "LoveMeter"
   
   security:
     name: Scan Project
