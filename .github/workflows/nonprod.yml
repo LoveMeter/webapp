@@ -19,6 +19,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       
+      - name: Install Depedency
+        run: npm install
+      
       - name: Import jfrog server token
         run: jfrog c import ${{ secrets.JFROG_SERVER_TOKEN }}
       
@@ -31,6 +34,7 @@ jobs:
   build:
     name: Build Love Meter Project
     runs-on: ubuntu-latest
+    needs: scan
     container:
       image: node:14.17.3-buster
 
