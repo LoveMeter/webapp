@@ -36,32 +36,32 @@ jobs:
   #     - name: Scan NPM depedency
   #       run: jfrog xr audit-npm --watches "LoveMeter"
   
-  security:
-    name: Depedency Scanning
-    runs-on: ubuntu-latest
-    container:
-      image: 244342/node-jfrog:14.17.3-buster
+  # security:
+  #   name: Depedency Scanning
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: 244342/node-jfrog:14.17.3-buster
     # needs: scan
 
-    steps:
-      - uses: actions/checkout@v2
+    # steps:
+    #   - uses: actions/checkout@v2
 
-      - name: Install Depedency
-        run: |
-          echo "_auth = ${{ secrets.JFROG_AUTH }}" > ~/.npmrc
-          echo "email = ${{ secrets.JFROG_EMAIL }}" >> ~/.npmrc
-          echo "always-auth = true" >> ~/.npmrc
+    #   - name: Install Depedency
+    #     run: |
+    #       echo "_auth = ${{ secrets.JFROG_AUTH }}" > ~/.npmrc
+    #       echo "email = ${{ secrets.JFROG_EMAIL }}" >> ~/.npmrc
+    #       echo "always-auth = true" >> ~/.npmrc
 
-          npm install --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
+    #       npm install --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
       
-      - name: Instakk snyk
-        run: npm i -g snyk --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
+    #   - name: Instakk snyk
+    #     run: npm i -g snyk --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
 
-      - name: Snyk auth
-        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+    #   - name: Snyk auth
+    #     run: snyk auth ${{ secrets.SNYK_TOKEN }}
       
-      - name: Snyk Monitoring
-        run: snyk monitor
+    #   - name: Snyk Monitoring
+    #     run: snyk monitor
 
       # - name: Upload result to GitHub Code Scanning
       #   uses: github/codeql-action/upload-sarif@v1
@@ -71,7 +71,7 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
-    needs: security
+    # needs: security
     steps:
       - uses: actions/checkout@v2
         with:
@@ -82,59 +82,59 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  build:
-    name: Build Love Meter Project
-    runs-on: ubuntu-latest
-    needs: sonarcloud
-    container:
-      image: node:14.17.3-buster
+  # build:
+  #   name: Build Love Meter Project
+  #   runs-on: ubuntu-latest
+  #   needs: sonarcloud
+  #   container:
+  #     image: node:14.17.3-buster
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
       
-      - name: Install Depedency
-        run: |
-          echo "_auth = ${{ secrets.JFROG_AUTH }}" > ~/.npmrc
-          echo "email = ${{ secrets.JFROG_EMAIL }}" >> ~/.npmrc
-          echo "always-auth = true" >> ~/.npmrc
+  #     - name: Install Depedency
+  #       run: |
+  #         echo "_auth = ${{ secrets.JFROG_AUTH }}" > ~/.npmrc
+  #         echo "email = ${{ secrets.JFROG_EMAIL }}" >> ~/.npmrc
+  #         echo "always-auth = true" >> ~/.npmrc
           
-          npm install -g @vue/cli --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
-          npm install --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
+  #         npm install -g @vue/cli --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
+  #         npm install --registry https://beningc.jfrog.io/artifactory/api/npm/default-npm-virtual/
 
-      - name: Build Project
-        run: npm run build
+  #     - name: Build Project
+  #       run: npm run build
       
-      - name: Save to JFROG
-        run: |
-          cd dist
-          tar -C $(pwd) -cf lovemeter-${GITHUB_RUN_NUMBER}.tar.gz *
-          curl -k -u ${{ secrets.JFROG_USERNAME }}:${{ secrets.JFROG_PASSWORD }} -T lovemeter-${GITHUB_RUN_NUMBER}.tar.gz "https://beningc.jfrog.io/artifactory/lovemeter/webapp/nonprod/lovemeter-${GITHUB_RUN_NUMBER}.tar.gz"
+  #     - name: Save to JFROG
+  #       run: |
+  #         cd dist
+  #         tar -C $(pwd) -cf lovemeter-${GITHUB_RUN_NUMBER}.tar.gz *
+  #         curl -k -u ${{ secrets.JFROG_USERNAME }}:${{ secrets.JFROG_PASSWORD }} -T lovemeter-${GITHUB_RUN_NUMBER}.tar.gz "https://beningc.jfrog.io/artifactory/lovemeter/webapp/nonprod/lovemeter-${GITHUB_RUN_NUMBER}.tar.gz"
       
-      - name: Archive production artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: dist
-          path: dist
+  #     - name: Archive production artifact
+  #       uses: actions/upload-artifact@main
+  #       with:
+  #         name: dist
+  #         path: dist
 
-  deploy:
-    name: Deploy to Firebase
-    runs-on: ubuntu-latest
-    needs: build
+  # deploy:
+  #   name: Deploy to Firebase
+  #   runs-on: ubuntu-latest
+  #   needs: build
     
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
 
-      - name: Download artifact
-        uses: actions/download-artifact@main
-        with:
-          name: dist
-          path: dist
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@main
+  #       with:
+  #         name: dist
+  #         path: dist
       
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  #     - name: Deploy to Firebase
+  #       uses: w9jds/firebase-action@master
+  #       with:
+  #         args: deploy --only hosting
+  #       env:
+  #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
