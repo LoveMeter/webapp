@@ -8,8 +8,8 @@
                 What your waiting for?
             </div>
             <div class="form">
-                <a href="/login.html" class="button">Login</a>
-                <a href="/login.html" class="button active">Register</a>
+                <a href="/login" class="button">Login</a>
+                <a href="/login" class="button active">Register</a>
             </div>
         </div>
     </div>

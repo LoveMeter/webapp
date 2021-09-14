@@ -1,0 +1,6 @@
+projectKey=test
+serverUrl=http://codereview.bening.com/devsonartsel
+serverVersion=8.9.2.46101
+dashboardUrl=http://codereview.bening.com/devsonartsel/dashboard?id=test
+ceTaskId=AXveFqzj5lH81wfN_mcN
+ceTaskUrl=http://codereview.bening.com/devsonartsel/api/ce/task?id=AXveFqzj5lH81wfN_mcN
