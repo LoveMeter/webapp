@@ -3,11 +3,9 @@
             <div class="form-box">
             
                 <div class="button-box">
-                    <div id="btn">
-                        
-                    </div>
-                    <button type="button" class="toggle-btn" @onclick="login()">Log in</button>
-                    <button type="button" class="toggle-btn" @onclick="register()">Register</button>
+                    <div id="btn" :style="[ isLogin ? {'left': '0px'}:{'left': '110px'} ]"></div>
+                    <button type="button" class="toggle-btn" v-on:click="login">Log in</button>
+                    <button type="button" class="toggle-btn" v-on:click="register">Register</button>
                 </div>
 
                 <div class="social-icons">
@@ -16,14 +14,18 @@
                     <img src="@/assets/icons/gp.png">
                 </div>
                 
-                <form id="login" class="input-group">
+                <form id="login" class="input-group"
+                    :style="[ isLogin ? {'left': '50px'}:{'left': '-400px'} ]"
+                >
                     <input type="text" class="input-field" placeholder="Username" required>
                     <input type="text" class="input-field" placeholder="Password" required>
                     <input type="checkbox" class="check-box"><span>Remember Password</span>
                     <button type="submit" class="submit-btn">Log in</button>
                 </form>
 
-                <form id="register" class="input-group">
+                <form id="register" class="input-group"
+                    :style="[ isLogin ? {'left': '450px'}:{'left': '50px'} ]"
+                >
                     <input type="text" class="input-field" placeholder="Username" required>
                     <input type="email" class="input-field" placeholder="Email" required>
                     <input type="text" class="input-field" placeholder="Password" required>
@@ -40,22 +42,15 @@ export default {
     name: "Login Page",
     methods: {
         login() {
-            let x = document.getElementById("login")
-            let y = document.getElementById("register")
-            let z = document.getElementById("btn")
-
-            x.style.left = "50px"
-            y.style.left = "450px"
-            z.style.left = "0px"
+            this.isLogin = true
         },
         register() {
-            let x = document.getElementById("login")
-            let y = document.getElementById("register")
-            let z = document.getElementById("btn")
-
-            x.style.left = "-400px"
-            y.style.left = "50px"
-            z.style.left = "110px"
+            this.isLogin = false
+        }
+    },
+    data() {
+        return {
+            isLogin: (this.$route.query.login === "true")
         }
     }
 }

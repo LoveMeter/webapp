@@ -10,7 +10,7 @@
             <a href="/">Home</a>
             <a href="">Service</a>
             <a href="">About</a>
-            <a href="/login" class="button">Login</a>
+            <a href="/login?login=true" class="button">Login</a>
         </div>
     </div>
 </template>
