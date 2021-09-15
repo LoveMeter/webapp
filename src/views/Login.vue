@@ -9,9 +9,9 @@
                 </div>
 
                 <div class="social-icons">
-                    <img src="@/assets/icons/fb.png">
-                    <img src="@/assets/icons/tw.png">
-                    <img src="@/assets/icons/gp.png">
+                    <img src="@/assets/icons/facebook.png">
+                    <img src="@/assets/icons/twitter.png">
+                    <img src="@/assets/icons/google.png">
                 </div>
                 
                 <form id="login" class="input-group"
@@ -99,7 +99,7 @@ export default {
         position: absolute;
         width: 110px;
         height: 100%;
-        background: linear-gradient(to right, #ff105f, #ffad06);
+        background: linear-gradient(to right, #ff00aa, rgb(253, 0, 211));
         border-radius: 30px;
         transition: .5s;
     }
@@ -142,7 +142,7 @@ export default {
         cursor: pointer;
         display: block;
         margin: auto;
-        background: linear-gradient(to right, #ff105f, #ffad06);
+        background: linear-gradient(to right, #ff00aa, rgb(253, 0, 211));
         border: 0;
         outline: none;
         border-radius: 30px;
