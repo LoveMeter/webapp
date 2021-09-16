@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: sonarcloud
     container:
-      image: node:14.17.3-buster
+      image: 244342/node-jfrog:14.17.3-buster
 
     steps:
       - name: Checkout repository
