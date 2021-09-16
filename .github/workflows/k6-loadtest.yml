@@ -1,0 +1,17 @@
+name: k6 Load Testing
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  test:
+    name: Load testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run k6 Script
+        run: echo "k6 run test.js"
