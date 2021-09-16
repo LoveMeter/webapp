@@ -13,5 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run k6 Script
-        run: echo "k6 run test.js"
+      - name: Run local k6 test
+        uses: k6io/action@v0.1
+        with:
+          filename: loadtest.js
