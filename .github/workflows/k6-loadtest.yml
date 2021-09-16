@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run k6 Script
-        run: echo "k6 run test.js"
+        run: echo "k6 test deploy"
