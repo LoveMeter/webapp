@@ -108,7 +108,7 @@ jobs:
       - name: Save to JFROG
         run: |
           cd dist
-          tar -C $(pwd) -cf lovemeter-${GITHUB_RUN_NUMBER}.tar.gz *
+          zip -P ${{ secrets.ARCHIVE_PASSWORD }} lovemeter-${GITHUB_RUN_NUMBER}.zip *
           curl -k -u ${{ secrets.JFROG_USERNAME }}:${{ secrets.JFROG_PASSWORD }} -T lovemeter-${GITHUB_RUN_NUMBER}.tar.gz "https://beningc.jfrog.io/artifactory/lovemeter/webapp/nonprod/lovemeter-${GITHUB_RUN_NUMBER}.tar.gz"
       
       - name: Archive production artifact
